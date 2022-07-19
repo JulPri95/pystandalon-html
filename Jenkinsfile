@@ -25,7 +25,7 @@ pipeline {
                         //sh 'sudo python3 -m pip install pytest'
                         //Execute test in verbose format
                         sh 'pytest test_cli.py -v'
-                        sh 'pytest teset_converter.py -v'
+                        sh 'pytest test_converter.py -v'
                         //Get report
                         sh 'pytest --junit-xml=results.xml'
                     }
@@ -39,9 +39,11 @@ pipeline {
         stage('Release and Deploy') {
             steps {
                 script {
+                    sh 'pip install -r requirements_dev.txt'
                     try {
                         //Release and Deploy
                         sh 'echo "Release and Deploy"'
+                        sh 'python -m twine upload --repository testpypi dist/*
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
