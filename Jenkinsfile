@@ -7,13 +7,9 @@ pipeline {
                 //testing pipeline
                 sh 'echo "pipeline connecting"'
                 withCredentials([file(credentialsId: 'GitHubActions_Token', variable: 'GITHUB_ACTIONS_CREDENTIALS')]) {
-                final String url = "https://api.github.com/repos/JulPri95/pystandalon-html/dispatches"
-                final String response = sh(script: "curl --request POST \
-  --url '$url' \
-  --header 'authorization: Bearer env.GITHUB_ACTIONS_CREDENTIALS' \
-  --data '{"event_type": "hello"}'", returnStdout: true).trim()
-
-                    echo response
+                        final String url = "https://api.github.com/repos/JulPri95/pystandalon-html/dispatches"
+                        final String response = sh(script: "curl --request POST \ --url '$url' \ --header 'authorization: Bearer env.GITHUB_ACTIONS_CREDENTIALS' \ --data '{"event_type": "hello"}'", returnStdout: true).trim() 
+                        echo response
                 }
                 //Install requirements
                 //sh 'pip3 install -r requirements_dev.txt'
