@@ -45,7 +45,7 @@ pipeline {
                     try {
                         //Release and Deploy
                         sh 'echo "Release and Deploy"'
-                        sh 'python -m twine upload --repository testpypi dist/*
+                        sh 'python -m twine upload --repository testpypi dist/*'
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
