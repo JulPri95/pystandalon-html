@@ -27,20 +27,16 @@ pipeline {
             steps {
                 script {
                     try {
-                        //Move to the correct directory
-                        sh 'cd $WORKSPACE/tests'
+
                         //Make sure all of the necessary libraries and plug-ins are installed
-                        //sh 'sudo apt install python3-pip'
-                        sh 'pip3 install -r requirements_dev.txt'
-                        //sh 'sudo python3 -m pip install pytest'
-                        //Execute test in verbose format
-                        sh 'pytest test_cli.py -v'
-                        sh 'pytest test_converter.py -v'
+                        sh 'pip3 install pytest'
                         //Get report
-                        sh 'pytest --junit-xml=results.xml'
+                        sh 'python3 -m pytest --junit-xml=results.xml'
+                        junit 'results.xml'
                     }
                     catch (exc) {
                             echo 'Unit tests failed'
+                            currentBuild.result = 'FAILURE'
                     }
                 }
             }
