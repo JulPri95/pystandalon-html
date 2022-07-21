@@ -5,7 +5,7 @@ pipeline {
         stage( 'Linting') {
             steps {
                 //testing pipeline
-                sh 'echo "pipeline connecting "'
+                sh 'echo "pipeline connecting"'
                 //Install requirements
                 sh 'pip3 install -r requirements_dev.txt'
                 //Move to the correct directory
