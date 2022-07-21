@@ -25,6 +25,7 @@ pipeline {
                         sh 'pip3 install pytest'
                         //Get report
                         sh 'python3 -m pytest --junit-xml=results.xml'
+                        junit 'results.xml'
                     }
                     catch (exc) {
                             echo 'Unit tests failed'
