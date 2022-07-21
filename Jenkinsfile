@@ -5,16 +5,6 @@ pipeline {
         stage( 'Linting') {
             steps {
                 //testing pipeline
-                sh 'echo "pipeline connecting"'
-                withCredentials([file(credentialsId: 'GitHubActions_Token', variable: 'GITHUB_ACTIONS_CREDENTIALS')]) {
-                final String url = "https://api.github.com/repos/JulPri95/pystandalon-html/dispatches"
-                final String response = sh(script: "curl --request POST \
-  --url '$url' \
-  --header 'authorization: Bearer env.GITHUB_ACTIONS_CREDENTIALS' \
-  --data '{"event_type": "hello"}'", returnStdout: true).trim()
-
-                    echo response
-                }
                 //Install requirements
                 //sh 'pip3 install -r requirements_dev.txt'
                 //Move to the correct directory
@@ -22,6 +12,7 @@ pipeline {
                 //sh 'ls'
                 //Lint
                 //sh 'python3 pylint.yml'
+                sh 'echo Linting...'
             }
         }
         //Run the python file 'tests' to perform the Unit Testing. If it fails, consider the stage a success anyway and move on to next stage
@@ -29,15 +20,9 @@ pipeline {
             steps {
                 script {
                     try {
-                        //Move to the correct directory
-                        sh 'cd $WORKSPACE/tests'
+
                         //Make sure all of the necessary libraries and plug-ins are installed
-                        sh 'sudo apt install python3-pip'
-                        sh 'pip3 install -r requirements_dev.txt'
-                        //sh 'sudo python3 -m pip install pytest'
-                        //Execute test in verbose format
-                        sh 'pytest test_cli.py -v'
-                        sh 'pytest test_converter.py -v'
+                        sh 'pip3 install pytest'
                         //Get report
                         sh 'pytest --junit-xml=results.xml'
                     }
@@ -51,15 +36,16 @@ pipeline {
         stage('Release and Deploy') {
             steps {
                 script {
-                    sh 'pip3 install -r requirements_dev.txt'
-                    try {
-                        //Release and Deploy
-                        sh 'echo "Release and Deploy"'
-                        sh 'python3 -m twine upload --repository testpypi dist/*'
-                    }
-                    catch (exc) {
-                        sh 'echo "Release and Deploy failed"'
-                    }
+                    // sh 'pip3 install -r requirements_dev.txt'
+                    // try {
+                    //     //Release and Deploy
+                    //     sh 'echo "Release and Deploy"'
+                    //     sh 'python3 -m twine upload --repository testpypi dist/*'
+                    // }
+                    // catch (exc) {
+                    //     sh 'echo "Release and Deploy failed"'
+                    // }
+                    sh 'echo Deployment...'
                 }   
             }
         }
