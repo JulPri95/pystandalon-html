@@ -45,16 +45,15 @@ pipeline {
         stage('Release and Deploy') {
             steps {
                 script {
-                    // sh 'pip3 install -r requirements_dev.txt'
-                    // try {
-                    //     //Release and Deploy
-                    //     sh 'echo "Release and Deploy"'
-                    //     sh 'python3 -m twine upload --repository testpypi dist/*'
-                    // }
-                    // catch (exc) {
-                    //     sh 'echo "Release and Deploy failed"'
-                    // }
-                    sh 'echo Deployment...'
+                    sh 'pip3 install -r requirements_dev.txt'
+                    try {
+                        //Release and Deploy
+                        sh 'echo "Release and Deploy"'
+                        sh 'python3 -m twine upload --repository testpypi dist/*'
+                    }
+                    catch (exc) {
+                        sh 'echo "Release and Deploy failed"'
+                    }
                 }   
             }
         }
