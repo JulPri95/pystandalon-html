@@ -30,7 +30,7 @@ pipeline {
                         //Move to the correct directory
                         sh 'cd $WORKSPACE/tests'
                         //Make sure all of the necessary libraries and plug-ins are installed
-                        sh 'sudo apt install python3-pip'
+                        //sh 'sudo apt install python3-pip'
                         sh 'pip3 install -r requirements_dev.txt'
                         //sh 'sudo python3 -m pip install pytest'
                         //Execute test in verbose format
