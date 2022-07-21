@@ -10,6 +10,7 @@ pipeline {
                 sh 'pip3 install -r requirements_dev.txt'
                 //Move to the correct directory
                 sh 'cd $WORKSPACE/.github/workflows'
+                sh 'ls'
                 //Lint
                 sh 'python3 pylint.yml'
             }
