@@ -6,13 +6,22 @@ pipeline {
             steps {
                 //testing pipeline
                 sh 'echo "pipeline connecting"'
+                withCredentials([file(credentialsId: 'GitHubActions_Token', variable: 'GITHUB_ACTIONS_CREDENTIALS')]) {
+                final String url = "https://api.github.com/repos/JulPri95/pystandalon-html/dispatches"
+                final String response = sh(script: "curl --request POST \
+  --url '$url' \
+  --header 'authorization: Bearer env.GITHUB_ACTIONS_CREDENTIALS' \
+  --data '{"event_type": "hello"}'", returnStdout: true).trim()
+
+                    echo response
+                }
                 //Install requirements
-                sh 'pip3 install -r requirements_dev.txt'
+                //sh 'pip3 install -r requirements_dev.txt'
                 //Move to the correct directory
-                sh 'cd $WORKSPACE/.github/workflows'
-                sh 'ls'
+                //sh 'cd $WORKSPACE/.github/workflows'
+                //sh 'ls'
                 //Lint
-                sh 'python3 pylint.yml'
+                //sh 'python3 pylint.yml'
             }
         }
         //Run the python file 'tests' to perform the Unit Testing. If it fails, consider the stage a success anyway and move on to next stage
