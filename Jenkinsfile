@@ -7,11 +7,11 @@ pipeline {
                 //testing pipeline
                 sh 'echo "pipeline connecting"'
                 //Install requirements
-                sh 'pip install -r requirements_dev.txt'
+                sh 'pip3 install -r requirements_dev.txt'
                 //Move to the correct directory
                 sh 'cd /$WORKSPACE/.github/workflows'
                 //Lint
-                sh 'python pylint.yml'
+                sh 'python3 pylint.yml'
             }
         }
         //Run the python file 'tests' to perform the Unit Testing. If it fails, consider the stage a success anyway and move on to next stage
@@ -23,7 +23,7 @@ pipeline {
                         sh 'cd /$WORKSPACE/tests'
                         //Make sure all of the necessary libraries and plug-ins are installed
                         sh 'sudo apt install python3-pip'
-                        sh 'pip install -r requirements_dev.txt'
+                        sh 'pip3 install -r requirements_dev.txt'
                         //sh 'sudo python3 -m pip install pytest'
                         //Execute test in verbose format
                         sh 'pytest test_cli.py -v'
@@ -41,11 +41,11 @@ pipeline {
         stage('Release and Deploy') {
             steps {
                 script {
-                    sh 'pip install -r requirements_dev.txt'
+                    sh 'pip3 install -r requirements_dev.txt'
                     try {
                         //Release and Deploy
                         sh 'echo "Release and Deploy"'
-                        sh 'python -m twine upload --repository testpypi dist/*'
+                        sh 'python3 -m twine upload --repository testpypi dist/*'
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
