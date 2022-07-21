@@ -4,6 +4,7 @@ pipeline {
         //Start Linting Process
         stage( 'Linting') {
             steps {
+                script {
                 //testing pipeline
                 sh 'echo "pipeline connecting"'
                 withCredentials([file(credentialsId: 'GitHubActions_Token', variable: 'GITHUB_ACTIONS_CREDENTIALS')]) {
@@ -18,6 +19,7 @@ pipeline {
                 //sh 'ls'
                 //Lint
                 //sh 'python3 pylint.yml'
+                }
             }
         }
         //Run the python file 'tests' to perform the Unit Testing. If it fails, consider the stage a success anyway and move on to next stage
