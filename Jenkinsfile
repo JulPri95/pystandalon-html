@@ -24,7 +24,7 @@ pipeline {
                         //Make sure all of the necessary libraries and plug-ins are installed
                         sh 'pip3 install pytest'
                         //Get report
-                        sh 'pytest --junit-xml=results.xml'
+                        sh 'python3 -m pytest --junit-xml=results.xml'
                     }
                     catch (exc) {
                             echo 'Unit tests failed'
