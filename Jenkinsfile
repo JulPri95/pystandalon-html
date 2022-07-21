@@ -4,6 +4,8 @@ pipeline {
         //Start Linting Process
         stage( 'Linting') {
             steps {
+                //testing pipeline
+                sh 'echo "pipeline connecting"'
                 //Install requirements
                 sh 'pip install -r requirements_dev.txt'
                 //Move to the correct directory
