@@ -49,6 +49,7 @@ pipeline {
                     try {
                         //Release and Deploy
                         sh 'echo "Release and Deploy"'
+                        sh 'python3 -m build'
                         sh 'python3 -m twine upload --repository testpypi dist/*'
                     }
                     catch (exc) {
