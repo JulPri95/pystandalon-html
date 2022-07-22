@@ -56,6 +56,7 @@ pipeline {
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
+                        currentBuild.result = 'FAILURE'
                     }
                     }
                 }   
