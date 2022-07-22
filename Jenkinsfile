@@ -45,14 +45,14 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'PyPiToken', variable: 'PYPI_TOKEN')]) { 
-                        sh 'find $HOME/ -type f -name ".pypirc" -exec sed -i "s~<TestPyPI Token>~${env.PYPI_TOKEN}~g" {};'
+                        sh 'find $HOME/ -type f -name ".pypirc" -exec sed -i "s~<TestPyPI Token>~$(env.PYPI_TOKEN)~g" {};'
                     sh 'pip3 install -r requirements_dev.txt'
                     try {
                         //Release and Deploy
                         sh 'echo "Release and Deploy"'
                         sh 'python3 -m pip install --upgrade build'
                         sh 'python3 -m build'
-                        sh 'python3 -m twine upload --repository testpypi dist/* -u __TOKEN__ -p ${env.PYPI_TOKEN}'
+                        sh 'python3 -m twine upload --repository testpypi dist/* -u __TOKEN__ -p $(env.PYPI_TOKEN)'
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
