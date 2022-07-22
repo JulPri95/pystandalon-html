@@ -45,7 +45,7 @@ pipeline {
                         sh 'echo "Release and Deploy"'
                         sh 'python3 -m pip install --upgrade build'
                         sh 'python3 -m build'
-                        sh 'python3 -m twine upload --repository testpypi --skip-existing dist/* -u __token__ -p $PYPI_TOKEN'
+                        sh 'python3 -m twine upload --skip-existing --repository testpypi dist/* -u __token__ -p $PYPI_TOKEN'
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
