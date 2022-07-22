@@ -27,7 +27,6 @@ pipeline {
             steps {
                 script {
                     try {
-
                         //Make sure all of the necessary libraries and plug-ins are installed
                         sh 'pip3 install pytest'
                         //Get report
@@ -45,16 +44,19 @@ pipeline {
         stage('Release and Deploy') {
             steps {
                 script {
+                    withCredentials([string(credentialsId: 'PyPiToken', variable: 'PYPI_TOKEN')]) { 
+                    sh 'find $HOME/ -type f -name '.pypirc' -exec sed -i 's~<TestPyPI Token>~$PYPI_TOKEN~g {} \;'
                     sh 'pip3 install -r requirements_dev.txt'
                     try {
                         //Release and Deploy
                         sh 'echo "Release and Deploy"'
                         sh 'python3 -m pip install --upgrade build'
                         sh 'python3 -m build'
-                        sh 'python3 -m twine upload --repository testpypi dist/*'
+                        sh 'python3 -m twine upload --repository testpypi dist/* -u __TOKEN__ -p $PYPI_TOKEN'
                     }
                     catch (exc) {
                         sh 'echo "Release and Deploy failed"'
+                    }
                     }
                 }   
             }
