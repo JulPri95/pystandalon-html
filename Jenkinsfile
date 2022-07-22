@@ -12,13 +12,6 @@ pipeline {
                         final String response = sh(script: "curl --request POST --url '$url' --header 'authorization: Bearer ${env.GITHUB_ACTIONS_CREDENTIALS}' --data '{\"event_type\": \"hello\"}'", returnStdout: true).trim() 
                         echo response
                 }
-                //Install requirements
-                //sh 'pip3 install -r requirements_dev.txt'
-                //Move to the correct directory
-                //sh 'cd $WORKSPACE/.github/workflows'
-                //sh 'ls'
-                //Lint
-                //sh 'python3 pylint.yml'
                 }
             }
         }
