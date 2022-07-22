@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'PyPiToken', variable: 'PYPI_TOKEN')]) { 
-                        sh 'find $HOME/ -type f -name '.pypirc' -exec sed -i 's~<TestPyPI Token>~${env.PYPI_TOKEN}~g {} \;'
+                        sh 'find $HOME/ -type f -name \'.pypirc\' -exec sed -i 's~<TestPyPI Token>~${env.PYPI_TOKEN}~g {} \;'
                     sh 'pip3 install -r requirements_dev.txt'
                     try {
                         //Release and Deploy
